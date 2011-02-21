@@ -1,0 +1,9 @@
+de:
+  wiki_tabs_visible: "Aktiv"
+  wiki_tabs_name:  "Tabname"
+  wiki_tabs_title: "Seitentitel"
+  wiki_tabs_add_line: "Zeile hinzufügen"
+  wiki_tabs_remove_line: "Zeile löschen"
+  field_wiki_tabs:
+    name:  "Tabname"
+    title: "Seitentitel"

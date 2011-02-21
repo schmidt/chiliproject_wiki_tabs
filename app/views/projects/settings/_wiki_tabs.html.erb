@@ -1,0 +1,10 @@
+<tr<%= defined?(tr_id) ? " id='#{tr_id}'" : '' %>>
+  <td><%= tab_form.check_box :active, :class => 'active' %></td>
+  <td><%= tab_form.text_field :name,  :size => input_size %></td>
+  <td><%= tab_form.text_field :title, :size => input_size %></td>
+  <td>
+    <%= tab_form.hidden_field :_destroy, :class => '_destroy' %>
+    <a href='#' class='icon icon-add wiki_tabs_add_line' title='<%= l(:wiki_tabs_add_line) %>'></a>
+    <a href='#' class='icon icon-del wiki_tabs_remove_line' title='<%= l(:wiki_tabs_remove_line) %>'></a>
+  </td>
+</tr>

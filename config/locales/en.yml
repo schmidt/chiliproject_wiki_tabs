@@ -1,0 +1,9 @@
+en:
+  wiki_tabs_visible: "Visible"
+  wiki_tabs_name:  "Tab Name"
+  wiki_tabs_title: "Wiki Page Title"
+  wiki_tabs_add_line: "Add line"
+  wiki_tabs_remove_line: "Remove line"
+  field_wiki_tabs:
+    name:  "Tab Name"
+    title: "Wiki Page Title"
