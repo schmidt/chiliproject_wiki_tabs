@@ -5,7 +5,7 @@ class CreateWikiTabs < ActiveRecord::Migration
       t.column :name, :string
       t.column :title, :string
 
-      t.belongs_to :project
+      t.belongs_to :wiki
     end
   end
 

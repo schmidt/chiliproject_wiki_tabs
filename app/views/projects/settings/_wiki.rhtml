@@ -2,14 +2,26 @@
   <%= javascript_include_tag :wiki_tabs, :plugin => 'redmine_wiki_tabs' %>
 <% end %>
 
+<% 
+  @wiki ||= Wiki.new(:project => @project)
+
+  # remove delete marker from tabs, that were not actually delete.
+  # otherwise, the _destroy input would be set silently, which leads
+  # to unexpected ui behavior
+  @wiki.tabs.select(&:marked_for_destruction?).each do |t|
+    t.instance_variable_set(:@marked_for_destruction, false)
+  end
+  @wiki.tabs.build(:active => true)
+
+  input_size = 35 
+%>
+
 <% remote_form_for :wiki, @wiki,
                    :url => { :controller => 'wikis', :action => 'edit', :id => @project },
                    :lang => current_language do |f| %>
 
 <%= error_messages_for 'wiki' %>
-<%= error_messages_for 'project' %>
 
-<% input_size = 35 %>
 
 <div class="box">
   <table id="wiki_tabs_table">
@@ -36,20 +48,17 @@
       </tr>
     </tbody>
 
-    <% fields_for :project, @project do |project_form| %>
-      <% @project.wiki_tabs.build(:active => true) %>
-      <tbody>
-        <% project_form.fields_for :wiki_tabs do |tab_form| %>
-          <% next if tab_form.object.destroyed? %>
-          <%= render :partial => 'projects/settings/wiki_tabs', :locals => {:tab_form => tab_form, :input_size => input_size} %>
-        <% end %>
-      </tbody>
-      <tbody style='display:none'>
-        <% project_form.fields_for :wiki_tabs, @project.wiki_tabs.last, :child_index => 'NEW_RECORD' do |tab_form| %>
-          <%= render :partial => 'projects/settings/wiki_tabs', :locals => {:tab_form => tab_form, :input_size => input_size, :tr_id => 'wiki_tabs_tr_template'} %>
-        <% end %>
-      </tbody>
-    <% end %>
+    <tbody>
+      <% f.fields_for :tabs do |tab_form| %>
+        <% next if tab_form.object.destroyed? %>
+        <%= render :partial => 'projects/settings/wiki_tabs', :locals => {:tab_form => tab_form, :input_size => input_size} %>
+      <% end %>
+    </tbody>
+    <tbody style='display:none'>
+      <% f.fields_for :tabs, @wiki.tabs.last, :child_index => 'NEW_RECORD' do |tab_form| %>
+        <%= render :partial => 'projects/settings/wiki_tabs', :locals => {:tab_form => tab_form, :input_size => input_size, :tr_id => 'wiki_tabs_tr_template'} %>
+      <% end %>
+    </tbody>
   </table>
   <p>
     <em><sup>*</sup><%= l(:text_unallowed_characters) %>: , . / ? ; : |</em>

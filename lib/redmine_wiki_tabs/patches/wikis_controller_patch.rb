@@ -16,22 +16,8 @@ module RedmineWikiTabs
         end
 
         def edit_with_wiki_tabs
-          @project.attributes = params[:project]
-          if request.post?
-            @project.save 
-            # remove delete marker from tabs, that were not actually delete.
-            # otherwise, the _destroy input would be set silently, which leads
-            # to unexpected ui behavior
-            @project.wiki_tabs.select(&:marked_for_destruction?).each do |t|
-              t.instance_variable_set(:@marked_for_destruction, false)
-            end
-          end
-
-          if params[:wiki][:start_page].blank?
-            # wikis always need a start page, but we are removing that need.
-            # what should we do? remove the requirement or work around it,
-            # by faking the user interaction and making it work.
-          end
+          # expecting to do something here in the future.
+          # ...
 
           edit_without_wiki_tabs
         end

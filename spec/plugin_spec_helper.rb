@@ -1,0 +1,2 @@
+module RedmineWikiTabs::SpecHelper
+end

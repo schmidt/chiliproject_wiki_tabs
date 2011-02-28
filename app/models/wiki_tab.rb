@@ -1,5 +1,5 @@
 class WikiTab < ActiveRecord::Base
-  belongs_to :project
+  belongs_to :wiki
   named_scope :active, :conditions => {:active => true}
 
   validates_presence_of :title

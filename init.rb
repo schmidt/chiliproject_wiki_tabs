@@ -13,9 +13,9 @@ end
 require 'dispatcher'
 Dispatcher.to_prepare :redmine_wiki_tabs do
 
-  require_dependency 'project'
-  unless Project.included_modules.include?(RedmineWikiTabs::Patches::ProjectPatch)
-    Project.send(:include, RedmineWikiTabs::Patches::ProjectPatch)
+  require_dependency 'wiki'
+  unless Wiki.included_modules.include?(RedmineWikiTabs::Patches::WikiPatch)
+    Wiki.send(:include, RedmineWikiTabs::Patches::WikiPatch)
   end
 
   require_dependency 'wikis_controller'
@@ -23,4 +23,3 @@ Dispatcher.to_prepare :redmine_wiki_tabs do
     WikisController.send(:include, RedmineWikiTabs::Patches::WikisControllerPatch)
   end
 end
-
