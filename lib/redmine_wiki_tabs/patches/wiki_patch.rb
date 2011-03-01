@@ -7,6 +7,16 @@ module RedmineWikiTabs
           accepts_nested_attributes_for :tabs, 
             :allow_destroy => true,
             :reject_if => proc { |attr| attr['name'].blank? && attr['title'].blank? }
+
+          include InstanceMethods
+        end
+      end
+
+      module InstanceMethods
+        def validate
+          if !show_default_tab && self.errors.on(:start_page)
+            self.errors.clear('start_page')
+          end
         end
       end
     end

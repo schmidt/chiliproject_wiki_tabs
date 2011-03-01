@@ -28,4 +28,48 @@ describe Wiki do
 
     wiki.tabs.active.should be_all { |wiki_tab| wiki_tab.active? && test_tabs.include?(wiki_tab) }
   end
+
+  describe 'validations' do
+    before do
+      @wiki = Factory.build(:wiki)
+    end
+
+    describe 'when show_default_tab is true' do
+      before do
+        @wiki.show_default_tab = true
+      end
+
+      it 'is valid with a start_page' do
+        @wiki.start_page = 'Wiki'
+        @wiki.should be_valid
+      end
+
+      it 'is invalid without a start_page' do
+        @wiki.start_page = nil
+        @wiki.should_not be_valid
+
+        @wiki.start_page = ''
+        @wiki.should_not be_valid
+      end
+    end
+
+    describe 'when show_default_tab is false' do
+      before do
+        @wiki.show_default_tab = false
+      end
+
+      it 'is valid with a start_page' do
+        @wiki.start_page = 'Wiki'
+        @wiki.should be_valid
+      end
+
+      it 'is valid without a start_page' do
+        @wiki.start_page = nil
+        @wiki.should be_valid
+
+        @wiki.start_page = ''
+        @wiki.should be_valid
+      end
+    end
+  end
 end
