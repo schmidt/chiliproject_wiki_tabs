@@ -1,3 +1,41 @@
-= wiki_tabs
+= Redmine/ChiliProject Wiki Tabs Plugin
 
-Description goes here
+This plugin provides the ability to add tabs linking to wiki pages on a
+per-project basis. It also allows to remove the default wiki link from
+the main menu, while the wiki itself is not deactivated.
+
+== Requirements
+
+This plugin aims to be compatible with
+
+* Redmine 1.1.x
+* ChiliProject 1.x
+
+If you are running into compatibility issues, please report a bug in the
+project's issue tracker.
+
+== Installation
+
+Please follow the default plugin installation instructions for
+Redmine/ChiliProject. Also run
+
+    rake db:migrate:plugin PLUGIN=redmine_wiki_tabs RAILS_ENV=production
+
+to enable all changes that are needed database-wise. Add a
+
+== Deinstallation
+
+Run the down-migrations by executing
+
+    rake db:migrate:plugin PLUGIN=redmine_wiki_tabs VERSION=0 RAILS_ENV=production
+
+Remove the Plugin from vendor/plugins
+
+    rm -r vendor/plugins/redmine_wiki_tabs
+
+
+== Licence
+
+(c) 2011 - Gregor Schmidt - Finn GmbH
+
+This plugin is licensed under the GNU GPL v2. See COPYRIGHT.txt and GPL.txt for details. 
