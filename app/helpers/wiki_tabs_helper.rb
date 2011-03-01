@@ -28,10 +28,12 @@ module WikiTabsHelper
     if current_menu_item == :wiki
       caption, url, selected = super
 
-      if node.is_a?(RedmineWikiTabs::MenuItem)
-        selected = @page.title == node.title
-      elsif node.name == :wiki
-        selected = @page.title == @wiki.start_page
+      if @page
+        if node.is_a?(RedmineWikiTabs::MenuItem)
+          selected = @page.title == node.title
+        elsif node.name == :wiki
+          selected = @page.title == @wiki.start_page
+        end
       end
 
       return caption, url, selected
