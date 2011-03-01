@@ -23,11 +23,6 @@ Dispatcher.to_prepare :redmine_wiki_tabs do
     ApplicationController.send(:include, RedmineWikiTabs::Patches::ApplicationControllerPatch)
   end
 
-  require_dependency 'wikis_controller'
-  unless WikisController.included_modules.include?(RedmineWikiTabs::Patches::WikisControllerPatch)
-    WikisController.send(:include, RedmineWikiTabs::Patches::WikisControllerPatch)
-  end
-
   unless ActiveRecord::Errors.included_modules.include?(RedmineWikiTabs::Patches::ActiveRecordErrorsPatch)
     ActiveRecord::Errors.send(:include, RedmineWikiTabs::Patches::ActiveRecordErrorsPatch)
   end
