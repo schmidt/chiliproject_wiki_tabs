@@ -27,9 +27,9 @@
   <table id="wiki_tabs_table">
     <thead>
       <tr>
-        <th><%= l(:wiki_tabs_visible) %></th>
-        <th><%= l(:wiki_tabs_name) %></th>
-        <th><%= l(:wiki_tabs_title) %>*</th>
+        <th><%= l('field_tabs.visible') %></th>
+        <th><%= l('field_tabs.name') %></th>
+        <th><%= l('field_tabs.title') %>*</th>
         <th></th>
       </tr>
     </thead>
@@ -37,13 +37,13 @@
       <tr>
         <td><input type='checkbox' checked='checked' /></td>
         <%# project_module_wiki is the string used in the default tab.
-          # Since that one is internationalized, I want to keep it around 
-          # as special value. On the other hand it may be deactivated, if 
-          # desired, so it should not be a limitation in functionality. %>
+            Since that one is internationalized, I want to keep it around 
+            as special value. On the other hand it may be deactivated, if 
+            desired, so it should not be a limitation in functionality. %>
           <td><input value="<%= l(:project_module_wiki) %>" disabled='disabled' size='<%= input_size %>' /></td>
           <td><%= f.text_field :start_page, :size => input_size %></td>
           <td>
-            <a href='#' class='icon icon-add wiki_tabs_add_line' title='<%= l(:wiki_tabs_add_line) %>'></a>
+            <a href='#' class='icon icon-add wiki_tabs_add_line' title='<%= l('redmine_wiki_tabs.add_line') %>'></a>
           </td>
       </tr>
     </tbody>
