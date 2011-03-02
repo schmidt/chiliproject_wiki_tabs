@@ -8,7 +8,7 @@ module RedmineWikiTabs
             :param => :project_id,
             :caption => wiki_tab.name)
 
-      @title = wiki_tab.title
+      @title = Wiki.titleize(wiki_tab.title)
     end
   end
 end
