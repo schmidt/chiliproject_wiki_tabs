@@ -1,11 +1,13 @@
 require 'redmine'
+require 'redmine_activity_module/version'
 
 Redmine::Plugin.register :redmine_wiki_tabs do
   name 'Redmine Wiki Tabs Plugin'
   author 'Gregor Schmidt'
   description 'This plugin provides the ability to add tabs linking to wiki ' +
               'pages on a per-project basis.'
-  version '0.0.1'
+
+  version RedmineWikiTabs::Version.full
   url 'http://github.com/finnlabs/redmine_wiki_tabs'
   author_url 'http://www.finn.de/'
 end

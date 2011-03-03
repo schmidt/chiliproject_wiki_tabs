@@ -1,0 +1,5 @@
+= 1.0.0 - 2011-03-03 - Initial release
+
+This plugin provides the ability to add tabs linking to wiki pages on a
+per-project basis. It also allows to remove the default wiki link from
+the main menu, while the wiki itself is not deactivated.
