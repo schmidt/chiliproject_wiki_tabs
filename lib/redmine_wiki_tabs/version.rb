@@ -13,7 +13,7 @@ module RedmineWikiTabs
     end
     
     def minor
-      0
+      1
     end
     
     def patch

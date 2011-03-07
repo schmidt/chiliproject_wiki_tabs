@@ -21,7 +21,7 @@ Redmine/ChiliProject. Also run
 
     rake db:migrate:plugin PLUGIN=redmine_wiki_tabs RAILS_ENV=production
 
-to enable all changes that are needed database-wise. Add a
+to enable all changes that are needed database-wise.
 
 == Deinstallation
 
