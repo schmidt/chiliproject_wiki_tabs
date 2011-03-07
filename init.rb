@@ -20,9 +20,9 @@ Dispatcher.to_prepare :redmine_wiki_tabs do
     Wiki.send(:include, RedmineWikiTabs::Patches::WikiPatch)
   end
 
-  require_dependency 'application_controller'
-  unless WikisController.included_modules.include?(RedmineWikiTabs::Patches::ApplicationControllerPatch)
-    ApplicationController.send(:include, RedmineWikiTabs::Patches::ApplicationControllerPatch)
+  require_dependency 'redmine/menu_manager'
+  unless Redmine::MenuManager::MenuHelper.included_modules.include?(RedmineWikiTabs::Patches::RedmineMenuManagerPatch)
+    Redmine::MenuManager::MenuHelper.send(:include, RedmineWikiTabs::Patches::RedmineMenuManagerPatch)
   end
 
   unless ActiveRecord::Errors.included_modules.include?(RedmineWikiTabs::Patches::ActiveRecordErrorsPatch)
