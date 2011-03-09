@@ -3,6 +3,8 @@ module RedmineWikiTabs
     module RedmineMenuManagerPatch
       def self.included(base)
         base.class_eval do
+          unloadable
+
           def menu_items_for_with_wiki_tabs(menu, project = nil, &block)
             if menu == :project_menu && project && project.wiki.present?
               if block.present?
