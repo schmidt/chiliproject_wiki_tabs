@@ -18,6 +18,8 @@ describe WikiController do
                                                     :title   => 'Page with Content')
     @redirected_page = Factory.create(:wiki_page, :wiki_id => @project.wiki.id,
                                                   :title   => 'Target Title')
+    @unrelated_page = Factory.create(:wiki_page, :wiki_id => @project.wiki.id,
+                                                 :title   => 'Unrelated Page')
 
     # creating redirects
     @redirect = Factory.create(:wiki_redirect, :wiki_id      => @project.wiki.id,
@@ -28,6 +30,8 @@ describe WikiController do
     Factory.create(:wiki_content, :page_id   => @page_with_content.id,
                                   :author_id => @user.id)
     Factory.create(:wiki_content, :page_id   => @redirected_page.id,
+                                  :author_id => @user.id)
+    Factory.create(:wiki_content, :page_id   => @unrelated_page.id,
                                   :author_id => @user.id)
   end
 
@@ -67,6 +71,16 @@ describe WikiController do
         end
       end
 
+      it 'is active, when a wiki page is shown, that does not match a custom wiki tab page' do
+        get 'show', :id => @unrelated_page.title, :project_id => @project.id
+
+        response.should be_success
+
+        response.should have_tag('#main-menu') do
+          with_tag 'a.wiki.selected'
+        end
+      end
+
       it 'is inactive, when a custom wiki tab page is shown' do
         get 'show', :id => @tab_for_page_with_content.title, :project_id => @project.id
 
@@ -80,7 +94,7 @@ describe WikiController do
     end
 
     shared_examples_for 'all custom wiki tabs' do
-      it 'is inactive, when default start page is selected' do
+      it 'is inactive, when default start page is shown' do
         get 'show', :project_id => @project.id
 
         response.should be_success
@@ -91,7 +105,18 @@ describe WikiController do
         end
       end
 
-      it 'is inactive, when other wiki start page is selected' do
+      it "is inactive, when an unrelated page is shown" do
+        get 'show', :id => @unrelated_page.title, :project_id => @project.id
+
+        response.should be_success
+
+        response.should have_tag('#main-menu') do
+          with_tag "a.#{@wiki_tab.name.parameterize}"
+          without_tag "a.#{@wiki_tab.name.parameterize}.selected"
+        end
+      end
+
+      it "is inactive, when an other custom wiki tab's page is shown" do
         get 'show', :id => @other_wiki_tab.title, :project_id => @project.id
 
         response.should be_success
