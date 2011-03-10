@@ -1,5 +1,7 @@
 module RedmineWikiTabs
   class MenuItem < Redmine::MenuManager::MenuItem
+    unloadable
+
     attr_reader :title
 
     def initialize(wiki_tab)

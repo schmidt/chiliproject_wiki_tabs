@@ -16,6 +16,7 @@ require 'dispatcher'
 Dispatcher.to_prepare :redmine_wiki_tabs do
 
   require_dependency 'wiki'
+  require_dependency 'wiki_tab'
   unless Wiki.included_modules.include?(RedmineWikiTabs::Patches::WikiPatch)
     Wiki.send(:include, RedmineWikiTabs::Patches::WikiPatch)
   end
