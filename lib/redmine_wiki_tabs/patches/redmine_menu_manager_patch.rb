@@ -5,16 +5,16 @@ module RedmineWikiTabs
         base.class_eval do
           unloadable
 
-          def menu_items_for_with_wiki_tabs(menu, project = nil, &block)
+          def menu_items_for_with_wiki_tabs(menu, project = nil)
             if menu == :project_menu && project && project.wiki.present?
-              if block.present?
+              if block_given?
                 menu_items_for_without_wiki_tabs(menu, project) do |node|
                   if node.name == :wiki
                     wiki_tabs_menu_items(project, node).each do |wiki_tabs_node|
-                      block.call(wiki_tabs_node)
+                      yield wiki_tabs_node
                     end
                   else
-                    block.call(node)
+                    yield node
                   end
                 end
               else
@@ -26,7 +26,7 @@ module RedmineWikiTabs
                 nodes
               end
             else
-              menu_items_for_without_wiki_tabs(menu, project, &block)
+              menu_items_for_without_wiki_tabs(menu, project, &Proc.new)
             end
           end
           alias_method_chain :menu_items_for, :wiki_tabs
