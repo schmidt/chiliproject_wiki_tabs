@@ -13,19 +13,40 @@ describe WikiController do
     @project = Factory.create(:project)
     @project.reload # to get the wiki into the proxy
     
-    @wiki_page = Factory.create(:wiki_page, :wiki_id => @project.wiki.id)
-    content = Factory.create(:wiki_content, :page_id => @wiki_page.id, 
-                                            :author_id => @user.id)
+    # creating pages
+    @page_with_content = Factory.create(:wiki_page, :wiki_id => @project.wiki.id,
+                                                    :title   => 'Page with Content')
+    @redirected_page = Factory.create(:wiki_page, :wiki_id => @project.wiki.id,
+                                                  :title   => 'Target Title')
+
+    # creating redirects
+    @redirect = Factory.create(:wiki_redirect, :wiki_id      => @project.wiki.id,
+                                               :title        => 'Source Title',
+                                               :redirects_to => 'Target Title')
+
+    # creating page contents
+    Factory.create(:wiki_content, :page_id   => @page_with_content.id,
+                                  :author_id => @user.id)
+    Factory.create(:wiki_content, :page_id   => @redirected_page.id,
+                                  :author_id => @user.id)
   end
 
-  describe 'main menu links' do
+  describe '- main menu links' do
     before do
-      Factory.create(:wiki_tab, :wiki_id => @project.wiki.id)
-      Factory.create(:wiki_tab, :wiki_id => @project.wiki.id)
-      Factory.create(:wiki_tab, :wiki_id => @project.wiki.id)
+      @tab_for_page_with_content = Factory.create(:wiki_tab, :wiki_id => @project.wiki.id,
+                                                             :name    => 'Tab for Page with Content',
+                                                             :title   => @page_with_content.title)
+
+      @tab_with_redirect = Factory.create(:wiki_tab, :wiki_id => @project.wiki.id,
+                                                     :name    => 'Tab with Redirect',
+                                                     :title   => @redirect.title)
+
+      @tab_for_new_wiki_page = Factory.create(:wiki_tab, :wiki_id => @project.wiki.id,
+                                                         :name    => 'Tab for new WikiPage',
+                                                         :title   => 'New Wiki Page')
     end
 
-    describe 'default wiki tab' do
+    describe '- default wiki tab' do
       it 'is active, when default start page is selected' do
         get 'show', :project_id => @project.id
 
@@ -47,7 +68,7 @@ describe WikiController do
       end
 
       it 'is inactive, when a custom wiki tab page is shown' do
-        get 'show', :id => @project.wiki.tabs.first.title, :project_id => @project.id
+        get 'show', :id => @tab_for_page_with_content.title, :project_id => @project.id
 
         response.should be_success
 
@@ -58,11 +79,7 @@ describe WikiController do
       end
     end
 
-    describe 'custom wiki tab' do
-      before do
-        @wiki_tab = @project.wiki.tabs.first
-      end
-
+    shared_examples_for 'all custom wiki tabs' do
       it 'is inactive, when default start page is selected' do
         get 'show', :project_id => @project.id
 
@@ -75,7 +92,7 @@ describe WikiController do
       end
 
       it 'is inactive, when other wiki start page is selected' do
-        get 'show', :id => @project.wiki.tabs.last.title, :project_id => @project.id
+        get 'show', :id => @other_wiki_tab.title, :project_id => @project.id
 
         response.should be_success
 
@@ -95,11 +112,37 @@ describe WikiController do
         end
       end
     end
+
+    describe '- custom wiki tab pointing to a redirect' do
+      before do
+        @wiki_tab = @tab_with_redirect
+        @other_wiki_tab = @tab_for_new_wiki_page
+      end
+
+      it_should_behave_like 'all custom wiki tabs'
+    end
+
+    describe '- custom wiki tab pointing to a new wiki page' do
+      before do
+        @wiki_tab = @tab_for_new_wiki_page
+        @other_wiki_tab = @tab_for_page_with_content
+      end
+
+      it_should_behave_like 'all custom wiki tabs'
+    end
+
+    describe '- custom wiki tab pointing to a saved wiki page' do
+      before do
+        @wiki_tab = @tab_for_page_with_content
+        @other_wiki_tab = @tab_for_new_wiki_page
+      end
+      
+      it_should_behave_like 'all custom wiki tabs'
+    end
   end
 
-  describe 'wiki sidebar' do
+  describe '- wiki sidebar' do
     include ActionView::Helpers
-    
 
     describe 'when show_default_tab is false' do
       before do
@@ -107,7 +150,7 @@ describe WikiController do
       end
 
       it 'does not show the link to the wiki start page' do
-        get 'show', :id => @wiki_page.title, :project_id => @project.id
+        get 'show', :id => @page_with_content.title, :project_id => @project.id
 
         response.should be_success
 
@@ -118,8 +161,12 @@ describe WikiController do
     end
 
     describe 'when show_default_tab is true' do
+      before do
+        @project.wiki.update_attribute(:show_default_tab, true)
+      end
+
       it 'does show the link to the wiki start page' do
-        get 'show', :id => @wiki_page.title, :project_id => @project.id
+        get 'show', :id => @page_with_content.title, :project_id => @project.id
 
         response.should be_success
 
