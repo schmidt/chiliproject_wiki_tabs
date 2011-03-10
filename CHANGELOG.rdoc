@@ -1,3 +1,14 @@
+= (master)
+
+Since 1.1.0 breaks in development, while working fine in production, we
+needed further refactorings and changes in ChiliProject. The changes needed are
+collected in #269 in the ChiliProject.org bug tracker.
+
+Fixes:
+
+* Reloading in development environment works as expected
+* Wiki Tabs referencing redirects instead of actual pages work as expected
+
 = 1.1.0 - 2011-03-07
 
 This release changes an internal implementation strategy. This results in an
