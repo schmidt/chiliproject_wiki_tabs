@@ -10,7 +10,8 @@ module RedmineWikiTabs
             :param => :project_id,
             :caption => wiki_tab.name)
 
-      @title = Wiki.titleize(wiki_tab.title)
+      page = wiki_tab.wiki.find_page(wiki_tab.title)
+      @title = page ? page.title : Wiki.titleize(wiki_tab.title)
     end
   end
 end
