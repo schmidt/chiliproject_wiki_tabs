@@ -21,7 +21,14 @@ Dispatcher.to_prepare :redmine_wiki_tabs do
     Wiki.send(:include, RedmineWikiTabs::Patches::WikiPatch)
   end
 
-  require_dependency 'redmine/menu_manager/menu_helper'
+  begin
+    require_dependency 'redmine/menu_manager/menu_helper'
+    RedmineWikiTabs::Patches::RedmineMenuManagerPatch.reload_support = true
+  rescue LoadError
+    require_dependency 'redmine/menu_manager'
+    RedmineWikiTabs::Patches::RedmineMenuManagerPatch.reload_support = false
+  end
+
   unless Redmine::MenuManager::MenuHelper.included_modules.include?(RedmineWikiTabs::Patches::RedmineMenuManagerPatch)
     Redmine::MenuManager::MenuHelper.send(:include, RedmineWikiTabs::Patches::RedmineMenuManagerPatch)
   end

@@ -1,9 +1,13 @@
 module RedmineWikiTabs
   module Patches
     module RedmineMenuManagerPatch
+      class << self
+        attr_accessor :reload_support
+      end
+
       def self.included(base)
         base.class_eval do
-          unloadable
+          unloadable if RedmineMenuManagerPatch.reload_support
 
           def menu_items_for_with_wiki_tabs(menu, project = nil)
             if menu == :project_menu && project && project.wiki.present?
