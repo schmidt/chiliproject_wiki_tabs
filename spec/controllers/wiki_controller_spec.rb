@@ -12,7 +12,7 @@ describe WikiController do
 
     @project = Factory.create(:project)
     @project.reload # to get the wiki into the proxy
-    
+
     # creating pages
     @page_with_content = Factory.create(:wiki_page, :wiki_id => @project.wiki.id,
                                                     :title   => 'Page with Content')
@@ -33,6 +33,18 @@ describe WikiController do
                                   :author_id => @user.id)
     Factory.create(:wiki_content, :page_id   => @unrelated_page.id,
                                   :author_id => @user.id)
+
+    # creating some child pages
+    @children = {}
+    [@page_with_content, @redirected_page].each do |page|
+      child_page = Factory.create(:wiki_page, :wiki_id   => @project.wiki.id,
+                                              :parent_id => page.id,
+                                              :title     => page.title + " child")
+      Factory.create(:wiki_content, :page_id => child_page.id,
+                                    :author_id => @user.id)
+
+      @children[page] = child_page
+    end
   end
 
   describe '- main menu links' do
@@ -146,13 +158,39 @@ describe WikiController do
       end
     end
 
+    shared_examples_for 'all custom wiki tabs with child pages' do
+      it 'is active, when the given custom wiki tab is an ancestor of the shown page' do
+        get 'show', :id => @child_page.title, :project_id => @project.id
+
+        response.should be_success
+        response.should have_exactly_one_selected_tab_in(:project_menu)
+
+        response.should have_tag('#main-menu') do
+          with_tag "a.#{@wiki_tab.name.parameterize}.selected"
+        end
+      end
+    end
+
+    describe '- custom wiki tab pointing to a saved wiki page' do
+      before do
+        @wiki_tab = @tab_for_page_with_content
+        @other_wiki_tab = @tab_for_new_wiki_page
+        @child_page = @children[@page_with_content]
+      end
+
+      it_should_behave_like 'all custom wiki tabs'
+      it_should_behave_like 'all custom wiki tabs with child pages'
+    end
+
     describe '- custom wiki tab pointing to a redirect' do
       before do
         @wiki_tab = @tab_with_redirect
         @other_wiki_tab = @tab_for_new_wiki_page
+        @child_page = @children[@redirected_page]
       end
 
       it_should_behave_like 'all custom wiki tabs'
+      it_should_behave_like 'all custom wiki tabs with child pages'
     end
 
     describe '- custom wiki tab pointing to a new wiki page' do
@@ -161,15 +199,6 @@ describe WikiController do
         @other_wiki_tab = @tab_for_page_with_content
       end
 
-      it_should_behave_like 'all custom wiki tabs'
-    end
-
-    describe '- custom wiki tab pointing to a saved wiki page' do
-      before do
-        @wiki_tab = @tab_for_page_with_content
-        @other_wiki_tab = @tab_for_new_wiki_page
-      end
-      
       it_should_behave_like 'all custom wiki tabs'
     end
   end

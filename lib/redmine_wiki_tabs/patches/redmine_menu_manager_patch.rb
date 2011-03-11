@@ -35,7 +35,7 @@ module RedmineWikiTabs
             if node.respond_to? :selected
               caption, url, selected = extract_node_details_without_wiki_tabs(node, project)
 
-              return caption, url, node.selected
+              return caption, url, !!node.selected
             else
               extract_node_details_without_wiki_tabs(node, project)
             end
@@ -47,9 +47,25 @@ module RedmineWikiTabs
               RedmineWikiTabs::MenuItem.new(tab)
             end
 
+            mark_currently_selected_item(menu_items, wiki_node, project)
+
+            menu_items.unshift wiki_node if project.wiki.show_default_tab?
+
+            menu_items
+          end
+
+          def mark_currently_selected_item(menu_items, wiki_node, project)
+            return unless current_menu_item == :wiki
+
             if @page
               menu_items.each do |item|
-                item.selected = @page.title == item.title
+                item.selected = false
+                page = @page
+
+                begin
+                  item.selected = true if page.title == item.title
+                  page = page.parent
+                end while page.present?
               end
             end
 
@@ -63,11 +79,7 @@ module RedmineWikiTabs
                   true
                 end
               end
-
-              menu_items.unshift wiki_node
             end
-
-            menu_items
           end
         end
       end
