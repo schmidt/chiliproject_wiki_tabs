@@ -55,6 +55,7 @@ describe WikiController do
         get 'show', :project_id => @project.id
 
         response.should be_success
+        response.should have_exactly_one_selected_tab_in(:project_menu)
 
         response.should have_tag('#main-menu') do
           with_tag 'a.wiki.selected'
@@ -65,6 +66,7 @@ describe WikiController do
         get 'index', :project_id => @project.id
 
         response.should be_success
+        response.should have_exactly_one_selected_tab_in(:project_menu)
 
         response.should have_tag('#main-menu') do
           with_tag 'a.wiki.selected'
@@ -75,6 +77,7 @@ describe WikiController do
         get 'show', :id => @unrelated_page.title, :project_id => @project.id
 
         response.should be_success
+        response.should have_exactly_one_selected_tab_in(:project_menu)
 
         response.should have_tag('#main-menu') do
           with_tag 'a.wiki.selected'
@@ -85,6 +88,7 @@ describe WikiController do
         get 'show', :id => @tab_for_page_with_content.title, :project_id => @project.id
 
         response.should be_success
+        response.should have_exactly_one_selected_tab_in(:project_menu)
 
         response.should have_tag('#main-menu') do
           with_tag 'a.wiki'
@@ -98,6 +102,7 @@ describe WikiController do
         get 'show', :project_id => @project.id
 
         response.should be_success
+        response.should have_exactly_one_selected_tab_in(:project_menu)
 
         response.should have_tag('#main-menu') do
           with_tag "a.#{@wiki_tab.name.parameterize}"
@@ -109,6 +114,7 @@ describe WikiController do
         get 'show', :id => @unrelated_page.title, :project_id => @project.id
 
         response.should be_success
+        response.should have_exactly_one_selected_tab_in(:project_menu)
 
         response.should have_tag('#main-menu') do
           with_tag "a.#{@wiki_tab.name.parameterize}"
@@ -120,6 +126,7 @@ describe WikiController do
         get 'show', :id => @other_wiki_tab.title, :project_id => @project.id
 
         response.should be_success
+        response.should have_exactly_one_selected_tab_in(:project_menu)
 
         response.should have_tag('#main-menu') do
           with_tag "a.#{@wiki_tab.name.parameterize}"
@@ -131,6 +138,7 @@ describe WikiController do
         get 'show', :id => @wiki_tab.title, :project_id => @project.id
 
         response.should be_success
+        response.should have_exactly_one_selected_tab_in(:project_menu)
 
         response.should have_tag('#main-menu') do
           with_tag "a.#{@wiki_tab.name.parameterize}.selected"
