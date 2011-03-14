@@ -1,4 +1,4 @@
-= (master)
+= 2.0.0 - 2011-03-14
 
 Since 1.1.0 breaks in development, while working fine in production, we
 needed further refactorings and changes in ChiliProject. The changes needed are
