@@ -10,7 +10,7 @@ module RedmineWikiTabs
           unloadable if RedmineMenuManagerPatch.reload_support
 
           def menu_items_for_with_wiki_tabs(menu, project = nil)
-            if menu == :project_menu && project && project.wiki.present?
+            if menu == :project_menu && project.present? && project.wiki.present?
               if block_given?
                 menu_items_for_without_wiki_tabs(menu, project) do |node|
                   if node.name == :wiki
@@ -30,7 +30,8 @@ module RedmineWikiTabs
                 nodes
               end
             else
-              menu_items_for_without_wiki_tabs(menu, project, &Proc.new)
+              block = block_given? ? Proc.new : nil
+              menu_items_for_without_wiki_tabs(menu, project, &block)
             end
           end
           alias_method_chain :menu_items_for, :wiki_tabs
