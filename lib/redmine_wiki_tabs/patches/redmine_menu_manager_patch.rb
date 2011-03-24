@@ -41,6 +41,12 @@ module RedmineWikiTabs
               caption, url, selected = extract_node_details_without_wiki_tabs(node, project)
 
               return caption, url, !!node.selected
+
+            elsif node.name == :wiki
+              caption, url, selected = extract_node_details_without_wiki_tabs(node, project)
+
+              return caption, url, @default_wiki_tab_selected
+
             else
               extract_node_details_without_wiki_tabs(node, project)
             end
@@ -75,15 +81,7 @@ module RedmineWikiTabs
             end
 
             if project.wiki.show_default_tab?
-              if menu_items.any? &:selected
-                def wiki_node.selected
-                  false
-                end
-              else
-                def wiki_node.selected
-                  true
-                end
-              end
+              @default_wiki_tab_selected = menu_items.none?(&:selected)
             end
           end
         end
