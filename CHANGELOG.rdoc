@@ -1,3 +1,9 @@
+= 2.0.1 - 2011-03-24
+
+Fixes:
+
+* Default-Wiki-Tab remains active although it shouldn't
+
 = 2.0.0 - 2011-03-14
 
 Since 1.1.0 breaks in development, while working fine in production, we
