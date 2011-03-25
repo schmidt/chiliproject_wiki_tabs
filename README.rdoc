@@ -29,11 +29,11 @@ to enable all changes that are needed database-wise.
 
 == Screenshots
 
-http://github.com/finnlabs/redmine_wiki_tabs/raw/master/doc/screen-capture-1.png
+https://github.com/finnlabs/redmine_wiki_tabs/raw/master/doc/screen-capture-1.png
 
-http://github.com/finnlabs/redmine_wiki_tabs/raw/master/doc/screen-capture-2.png
+https://github.com/finnlabs/redmine_wiki_tabs/raw/master/doc/screen-capture-2.png
 
-http://github.com/finnlabs/redmine_wiki_tabs/raw/master/doc/screen-capture-3.png
+https://github.com/finnlabs/redmine_wiki_tabs/raw/master/doc/screen-capture-3.png
 
 == Deinstallation
 
