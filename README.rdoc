@@ -8,8 +8,7 @@ the main menu, while the wiki itself is not deactivated.
 
 This plugin aims to be compatible with
 
-* Redmine 1.1.x
-* ChiliProject 1.x
+* ChiliProject 1.2
 
 If you are running into compatibility issues, please report a bug in the
 project's issue tracker.
@@ -33,9 +32,23 @@ Remove the Plugin from vendor/plugins
 
     rm -r vendor/plugins/redmine_wiki_tabs
 
+== Development
 
-== Licence
+To run the tests, you will need a current version of our {Redmine/ChiliProject
+Dev Tools}[https://github.com/finnlabs/redmine-dev-tools]. After running
+
+    bundle install
+
+You should be able to execute the tests with
+
+    rake redmine:rspec:wiki_tabs
+
+If these instructions are insufficient, please open a ticket in the GitHub issue
+tracker with information, where you are stuck.
+
+
+== License
 
 (c) 2011 - Gregor Schmidt - Finn GmbH
 
-This plugin is licensed under the GNU GPL v2. See COPYRIGHT.txt and GPL.txt for details. 
+This plugin is licensed under the GNU GPL v2. See COPYRIGHT.txt and GPL.txt for details.
