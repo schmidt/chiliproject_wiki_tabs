@@ -1,5 +1,5 @@
 require 'redmine'
-require 'redmine_activity_module/version'
+require 'redmine_wiki_tabs/version'
 
 Redmine::Plugin.register :redmine_wiki_tabs do
   name 'Redmine Wiki Tabs Plugin'
