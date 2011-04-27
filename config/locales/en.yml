@@ -7,3 +7,6 @@ en:
   redmine_wiki_tabs:
     add_line:    Add line
     remove_line: Remove line
+    create_child_page: Create new child page
+    create_child_page_for: "Create new child page: \"%{title}\""
+    create_new_page: Create new page

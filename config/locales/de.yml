@@ -7,3 +7,6 @@ de:
   redmine_wiki_tabs:
     add_line:    Zeile hinzufügen
     remove_line: Zeile löschen
+    create_child_page: Neue Unterseite anlegen
+    create_child_page_for: "Neue Unterseite anlegen: \"%{title}\""
+    create_new_page: Neue Seite anlegen

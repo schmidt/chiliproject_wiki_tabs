@@ -10,15 +10,25 @@ Redmine::Plugin.register :redmine_wiki_tabs do
   version RedmineWikiTabs::Version.full
   url 'http://github.com/finnlabs/redmine_wiki_tabs'
   author_url 'http://www.finn.de/'
+
+  unless Redmine::AccessControl.allowed_actions(:edit_wiki_pages).include? 'wiki/new'
+    Redmine::AccessControl.modules_permissions('wiki').find { |p| p.name == :edit_wiki_pages }.actions << 'wiki/new'
+    Redmine::AccessControl.modules_permissions('wiki').find { |p| p.name == :edit_wiki_pages }.actions << 'wiki/new_child'
+    Redmine::AccessControl.modules_permissions('wiki').find { |p| p.name == :edit_wiki_pages }.actions << 'wiki/create'
+  end
 end
 
 require 'dispatcher'
 Dispatcher.to_prepare :redmine_wiki_tabs do
 
   require_dependency 'wiki'
+  require_dependency 'wiki_controller'
   require_dependency 'wiki_tab'
   unless Wiki.included_modules.include?(RedmineWikiTabs::Patches::WikiPatch)
     Wiki.send(:include, RedmineWikiTabs::Patches::WikiPatch)
+  end
+  unless WikiController.included_modules.include?(RedmineWikiTabs::Patches::WikiControllerPatch)
+    WikiController.send(:include, RedmineWikiTabs::Patches::WikiControllerPatch)
   end
 
   begin
