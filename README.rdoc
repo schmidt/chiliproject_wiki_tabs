@@ -10,6 +10,11 @@ This plugin aims to be compatible with
 
 * ChiliProject 1.2
 
+Please note, that there is a bug when running the plugin in development mode.
+To make sure, that everything runs smooth, you need to run your app server in
+production mode, where class reloading is disabled. If you like, you can also
+use ChiliProject's unstable branch or wait until ChiliProject 2.0 is released.
+
 If you are running into compatibility issues, please report a bug in the
 project's issue tracker.
 
@@ -21,6 +26,14 @@ Redmine/ChiliProject. Also run
     rake db:migrate:plugin PLUGIN=redmine_wiki_tabs RAILS_ENV=production
 
 to enable all changes that are needed database-wise.
+
+== Screenshots
+
+https://github.com/finnlabs/redmine_wiki_tabs/raw/master/doc/screen-capture-1.png
+
+https://github.com/finnlabs/redmine_wiki_tabs/raw/master/doc/screen-capture-2.png
+
+https://github.com/finnlabs/redmine_wiki_tabs/raw/master/doc/screen-capture-3.png
 
 == Deinstallation
 
