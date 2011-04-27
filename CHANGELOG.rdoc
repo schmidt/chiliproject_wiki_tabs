@@ -1,3 +1,9 @@
+= 2.0.2 - 2011-04-27
+
+Fixes:
+
+* Fixing unwanted dependency to activity_module
+
 = 2.0.1 - 2011-03-24
 
 Fixes:
