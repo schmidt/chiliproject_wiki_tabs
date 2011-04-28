@@ -5,7 +5,8 @@ module RedmineWikiTabs
         base.class_eval do
           unloadable
 
-          verify :method => :post, :only => :create, :render => {:nothing => true, :status => :method_not_allowed}
+          verify :method => :get,  :only => [:new, :new_child], :render => {:nothing => true, :status => :method_not_allowed}
+          verify :method => :post, :only => :create,            :render => {:nothing => true, :status => :method_not_allowed}
 
           include InstanceMethods
         end
@@ -28,7 +29,7 @@ module RedmineWikiTabs
 
           new
 
-          @page.parent_id = old_page.id
+          @page.parent = old_page
           render :action => 'new'
         end
 

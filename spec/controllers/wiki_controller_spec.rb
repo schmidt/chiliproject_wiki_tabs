@@ -28,6 +28,82 @@ describe WikiController do
     end
   end
 
+  describe 'actions' do
+    before do
+      @controller.stub!(:set_localization)
+
+      @role = Factory.create(:non_member)
+      @user = Factory.create(:admin)
+
+      User.stub!(:current).and_return @user
+
+      @project = Factory.create(:project)
+      @project.reload # to get the wiki into the proxy
+
+      # creating pages
+      @existing_page = Factory.create(:wiki_page, :wiki_id => @project.wiki.id,
+                                                  :title   => 'Exisiting Page')
+
+      # creating page contents
+      Factory.create(:wiki_content, :page_id   => @existing_page.id,
+                                    :author_id => @user.id)
+    end
+
+    shared_examples_for "a 'new' action" do
+      it 'assigns @project to the current project' do
+        get_page
+
+        assigns[:project].should == @project
+      end
+
+      it 'assigns @page to a newly created wiki page' do
+        get_page
+
+        assigns[:page].should be_new_record
+        assigns[:page].should be_kind_of WikiPage
+        assigns[:page].wiki.should == @project.wiki
+      end
+
+      it 'assigns @content to a newly created wiki content' do
+        get_page
+
+        assigns[:content].should be_new_record
+        assigns[:content].should be_kind_of WikiContent
+        assigns[:content].page.should == assigns[:page]
+      end
+
+      it 'renders the new action' do
+        get_page
+
+        response.should render_template 'new'
+      end
+    end
+
+    describe 'new' do
+      let(:get_page) { get 'new', :project_id => @project }
+
+      it_should_behave_like "a 'new' action"
+    end
+
+    describe 'new_child' do
+      let(:get_page) { get 'new_child', :project_id => @project, :id => @existing_page.title }
+
+      it_should_behave_like "a 'new' action"
+
+      it 'sets the parent page for the new page' do
+        get_page
+
+        assigns[:page].parent.should == @existing_page
+      end
+
+      it 'renders 404 if used with an unknown page title' do
+        get 'new_child', :project_id => @project, :id => "foobar"
+
+        response.status.should == "404 Not Found"
+      end
+    end
+  end
+
   describe 'view related stuff' do
     integrate_views
 
