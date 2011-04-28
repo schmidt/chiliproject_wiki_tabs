@@ -36,6 +36,11 @@ describe WikiController do
 
       @role = Factory.create(:non_member)
       @user = Factory.create(:admin)
+      @anon = Factory.create(:anonymous)
+
+      Role.anonymous.update_attributes :name => I18n.t(:default_role_anonymous),
+                                       :permissions => [:view_wiki_pages]
+
       User.stub!(:current).and_return @user
 
       @project = Factory.create(:project)
@@ -270,26 +275,62 @@ describe WikiController do
 
       describe 'new child page link' do
         describe 'on an index page' do
-          it 'is invisible' do
-            get 'index', :project_id => @project.id
+          describe "being authorized to edit wiki pages" do
+            it 'is invisible' do
+              get 'index', :project_id => @project.id
 
-            response.should be_success
+              response.should be_success
 
-            response.should have_tag '#sidebar' do
-              without_tag "a", "Create new child page"
+              response.should have_tag '#sidebar' do
+                without_tag "a", "Create new child page"
+              end
+            end
+          end
+
+          describe "being unauthorized to edit wiki pages" do
+            before do
+              User.stub!(:current).and_return @anon
+            end
+
+            it 'is invisible' do
+              get 'index', :project_id => @project.id
+
+              response.should be_success
+
+              response.should have_tag '#sidebar' do
+                without_tag "a", "Create new child page"
+              end
             end
           end
         end
 
         describe 'on a wiki page' do
-          it 'is visible' do
-            get 'show', :id => @page_with_content.title, :project_id => @project.identifier
+          describe "being authorized to edit wiki pages" do
+            it 'is visible' do
+              get 'show', :id => @page_with_content.title, :project_id => @project.identifier
 
-            response.should be_success
+              response.should be_success
 
-            response.should have_tag '#sidebar' do
-              with_tag "a[href=#{wiki_new_child_path(:project_id => @project, :id => @page_with_content.title)}]",
-                       "Create new child page"
+              response.should have_tag '#sidebar' do
+                with_tag "a[href=#{wiki_new_child_path(:project_id => @project, :id => @page_with_content.title)}]",
+                         "Create new child page"
+              end
+            end
+          end
+
+          describe "being unauthorized to edit wiki pages" do
+            before do
+              User.stub!(:current).and_return @anon
+            end
+
+            it 'is invisible' do
+              get 'show', :id => @page_with_content.title, :project_id => @project.identifier
+
+              response.should be_success
+
+              response.should have_tag '#sidebar' do
+                without_tag "a", "Create new child page"
+              end
             end
           end
         end
@@ -297,25 +338,63 @@ describe WikiController do
 
       describe 'new page link' do
         describe 'on an index page' do
-          it 'is visible' do
-            get 'index', :project_id => @project.id
+          describe "being authorized to edit wiki pages" do
+            it 'is visible' do
+              get 'index', :project_id => @project.id
 
-            response.should be_success
+              response.should be_success
 
-            response.should have_tag '#sidebar' do
-              with_tag "a[href=#{wiki_new_path(:project_id => @project)}]"
+              response.should have_tag '#sidebar' do
+                with_tag "a[href=#{wiki_new_path(:project_id => @project)}]",
+                         "Create new page"
+              end
+            end
+          end
+
+          describe "being unauthorized to edit wiki pages" do
+            before do
+              User.stub!(:current).and_return @anon
+            end
+
+            it 'is invisible' do
+              get 'index', :project_id => @project.id
+
+              response.should be_success
+
+              response.should have_tag '#sidebar' do
+                without_tag "a", "Create new page"
+              end
             end
           end
         end
 
         describe 'on a wiki page' do
-          it 'is visible' do
-            get 'show', :id => @page_with_content.title, :project_id => @project.identifier
+          describe "being authorized to edit wiki pages" do
+            it 'is visible' do
+              get 'show', :id => @page_with_content.title, :project_id => @project.identifier
 
-            response.should be_success
+              response.should be_success
 
-            response.should have_tag '#sidebar' do
-              with_tag "a[href=#{wiki_new_path(:project_id => @project)}]"
+              response.should have_tag '#sidebar' do
+                with_tag "a[href=#{wiki_new_path(:project_id => @project)}]",
+                         "Create new page"
+              end
+            end
+          end
+
+          describe "being unauthorized to edit wiki pages" do
+            before do
+              User.stub!(:current).and_return @anon
+            end
+
+            it 'is invisible' do
+              get 'show', :id => @page_with_content.title, :project_id => @project.identifier
+
+              response.should be_success
+
+              response.should have_tag '#sidebar' do
+                without_tag "a", "Create new page"
+              end
             end
           end
         end
