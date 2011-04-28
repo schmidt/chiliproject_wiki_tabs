@@ -207,34 +207,36 @@ describe WikiController do
     describe '- wiki sidebar' do
       include ActionView::Helpers
 
-      describe 'when show_default_tab is false' do
-        before do
-          @project.wiki.update_attribute(:show_default_tab, false)
-        end
+      describe 'the link to the wiki start page' do
+        describe 'when show_default_tab is false' do
+          before do
+            @project.wiki.update_attribute(:show_default_tab, false)
+          end
 
-        it 'does not show the link to the wiki start page' do
-          get 'show', :id => @page_with_content.title, :project_id => @project.id
+          it 'is invisible' do
+            get 'show', :id => @page_with_content.title, :project_id => @project.id
 
-          response.should be_success
+            response.should be_success
 
-          response.should have_tag '#sidebar' do
-            without_tag "a[href=#{url_for(:action => 'show')}]"
+            response.should have_tag '#sidebar' do
+              without_tag "a[href=#{url_for(:action => 'show')}]"
+            end
           end
         end
-      end
 
-      describe 'when show_default_tab is true' do
-        before do
-          @project.wiki.update_attribute(:show_default_tab, true)
-        end
+        describe 'when show_default_tab is true' do
+          before do
+            @project.wiki.update_attribute(:show_default_tab, true)
+          end
 
-        it 'does show the link to the wiki start page' do
-          get 'show', :id => @page_with_content.title, :project_id => @project.id
+          it 'is visible' do
+            get 'show', :id => @page_with_content.title, :project_id => @project.id
 
-          response.should be_success
+            response.should be_success
 
-          response.should have_tag '#sidebar' do
-            with_tag "a[href=#{url_for(:action => 'show')}]"
+            response.should have_tag '#sidebar' do
+              with_tag "a[href=#{url_for(:action => 'show')}]"
+            end
           end
         end
       end
