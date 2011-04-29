@@ -102,6 +102,84 @@ describe WikiController do
         response.status.should == "404 Not Found"
       end
     end
+
+    describe 'create' do
+      describe 'successful action' do
+        it 'redirects to the show action' do
+          post 'create',
+               :project_id => @project,
+               :page => {:title => "abc"},
+               :content => {:text => "h1. abc"}
+
+          response.should redirect_to :action => 'show', :project_id => @project, :id => 'Abc'
+        end
+
+        it 'saves a new WikiPage with proper content' do
+          post 'create',
+               :project_id => @project,
+               :page => {:title => "abc"},
+               :content => {:text => "h1. abc"}
+
+          page = @project.wiki.pages.find_by_title 'Abc'
+          page.should_not be_nil
+          page.title.should == 'Abc'
+          page.content.text.should == 'h1. abc'
+        end
+      end
+
+      describe 'unsuccessful action' do
+        it 'renders "wiki/new"' do
+          post 'create',
+               :project_id => @project,
+               :page => {:title => ""},
+               :content => {:text => "h1. abc"}
+
+          response.should render_template('new')
+        end
+
+        it 'assigns project to work with new template' do
+          post 'create',
+               :project_id => @project,
+               :page => {:title => ""},
+               :content => {:text => "h1. abc"}
+
+          assigns[:project].should == @project
+        end
+
+        it 'assigns wiki to work with new template' do
+          post 'create',
+               :project_id => @project,
+               :page => {:title => ""},
+               :content => {:text => "h1. abc"}
+
+          assigns[:wiki].should == @project.wiki
+          assigns[:wiki].should_not be_new_record
+        end
+
+        it 'assigns page to work with new template' do
+          post 'create',
+               :project_id => @project,
+               :page => {:title => ""},
+               :content => {:text => "h1. abc"}
+
+          assigns[:page].should be_new_record
+          assigns[:page].wiki.project.should == @project
+          assigns[:page].title.should == ""
+          assigns[:page].should_not be_valid
+        end
+
+        it 'assigns content to work with new template' do
+          post 'create',
+               :project_id => @project,
+               :page => {:title => ""},
+               :content => {:text => "h1. abc"}
+
+          assigns[:content].should be_new_record
+          assigns[:content].page.wiki.project.should == @project
+          assigns[:content].text.should == 'h1. abc'
+        end
+      end
+    end
   end
 
   describe 'view related stuff' do
