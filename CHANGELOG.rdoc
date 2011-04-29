@@ -1,3 +1,13 @@
+= 3.0.0 - 2011-04-29
+
+Features:
+
+* Added link to directly create a new wiki page, no more fiddling in the
+  address bar
+* Added link to directly create a child page of the current page, no more
+  fiddling in the address bar to first create a page and make it a subpage by
+  'renaming' it.
+
 = 2.0.2 - 2011-04-27
 
 Fixes:

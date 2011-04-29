@@ -9,7 +9,7 @@ module RedmineWikiTabs
     end
 
     def major
-      2
+      3
     end
 
     def minor
@@ -17,7 +17,7 @@ module RedmineWikiTabs
     end
 
     def patch
-      2
+      0
     end
 
     extend self
