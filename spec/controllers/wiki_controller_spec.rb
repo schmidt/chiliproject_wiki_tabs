@@ -28,7 +28,7 @@ describe WikiController do
     end
 
     it 'should contect POST /projects/:project_id/wiki/:id/preview to wiki/preview' do
-      params_from(:get, '/projects/abc/wiki/def/preview').should == {
+      params_from(:post, '/projects/abc/wiki/def/preview').should == {
         :controller => 'wiki',
         :action => 'preview',
         :project_id => 'abc',
@@ -37,7 +37,7 @@ describe WikiController do
     end
 
     it 'should contect POST /projects/:project_id/wiki/preview to wiki/preview' do
-      params_from(:get, '/projects/abc/preview').should == {
+      params_from(:post, '/projects/abc/wiki/preview').should == {
         :controller => 'wiki',
         :action => 'preview',
         :project_id => 'abc'
