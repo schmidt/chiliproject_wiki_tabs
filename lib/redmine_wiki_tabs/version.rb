@@ -17,7 +17,7 @@ module RedmineWikiTabs
     end
 
     def patch
-      0
+      1
     end
 
     extend self

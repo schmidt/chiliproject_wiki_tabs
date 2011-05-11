@@ -1,3 +1,9 @@
+= 3.0.1 - 2011-05-11
+
+Fixes:
+
+* Preview was not working when using the new wiki page link
+
 = 3.0.0 - 2011-04-29
 
 Features:
