@@ -1,3 +1,12 @@
+
+= 3.0.2 - 2011-05-11
+
+This release contains no code changes - only tests were fixed
+
+Fixes:
+
+* Fixing tests, stupid me
+
 = 3.0.1 - 2011-05-11
 
 Fixes:
