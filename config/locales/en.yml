@@ -4,7 +4,7 @@ en:
     title:   Wiki Page Title
     visible: Visible
 
-  redmine_wiki_tabs:
+  wiki_tabs:
     add_line:    Add line
     remove_line: Remove line
     create_child_page: Create new child page

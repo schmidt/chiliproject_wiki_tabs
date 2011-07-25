@@ -1,4 +1,4 @@
-module RedmineWikiTabs
+module WikiTabs
   module Patches
     module RedmineMenuManagerPatch
       class << self
@@ -55,7 +55,7 @@ module RedmineWikiTabs
 
           def wiki_tabs_menu_items(project, wiki_node)
             menu_items = WikiTab.active.find(:all, :conditions => {:wiki_id => project.wiki}).map do |tab|
-              RedmineWikiTabs::MenuItem.new(tab)
+              WikiTabs::MenuItem.new(tab)
             end
 
             mark_currently_selected_item(menu_items, wiki_node, project)

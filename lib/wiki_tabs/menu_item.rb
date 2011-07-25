@@ -1,4 +1,4 @@
-module RedmineWikiTabs
+module WikiTabs
   class MenuItem < Redmine::MenuManager::MenuItem
     unloadable
 

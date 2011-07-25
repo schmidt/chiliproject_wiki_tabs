@@ -4,7 +4,7 @@ de:
     name:  Tabname
     visible: Aktiv
 
-  redmine_wiki_tabs:
+  wiki_tabs:
     add_line:    Zeile hinzufügen
     remove_line: Zeile löschen
     create_child_page: Neue Unterseite anlegen

@@ -27,4 +27,4 @@ Dir[File.dirname(__FILE__) + "/support/**/*.rb"].each {|f| require f}
 
 require 'redmine_factory_girl'
 require File.expand_path(File.dirname(__FILE__) + "/plugin_spec_helper")
-include RedmineWikiTabs::SpecHelper
+include WikiTabs::SpecHelper

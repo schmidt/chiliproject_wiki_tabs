@@ -5,9 +5,9 @@
 <h3><%= l(:label_wiki) %></h3>
 
 <% if User.current.allowed_to? :edit_wiki_pages, @project %>
-  <%= link_to l('redmine_wiki_tabs.create_new_page'), wiki_new_path(:project_id => @project) %><br/>
+  <%= link_to l('wiki_tabs.create_new_page'), wiki_new_path(:project_id => @project) %><br/>
   <% if @page %>
-    <%= link_to l('redmine_wiki_tabs.create_child_page'), wiki_new_child_path(:id => @page.title, :project_id => @project) %><br/>
+    <%= link_to l('wiki_tabs.create_child_page'), wiki_new_child_path(:id => @page.title, :project_id => @project) %><br/>
   <% end %>
 
   <br/><hr/><br/>

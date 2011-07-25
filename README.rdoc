@@ -27,7 +27,8 @@ project's issue tracker.
 == Installation
 
 Please follow the default plugin installation instructions for
-ChiliProject. Also run
+ChiliProject. Make sure, the plugin folder is called `redmine_wiki_tabs`.
+Also run
 
     rake db:migrate:plugin PLUGIN=redmine_wiki_tabs RAILS_ENV=production
 

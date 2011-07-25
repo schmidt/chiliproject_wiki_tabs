@@ -1,2 +1,2 @@
-module RedmineWikiTabs::SpecHelper
+module WikiTabs::SpecHelper
 end

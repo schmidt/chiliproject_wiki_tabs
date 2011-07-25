@@ -1,4 +1,4 @@
-module RedmineWikiTabs
+module WikiTabs
   module Patches
     module WikiControllerPatch
       def self.included(base)

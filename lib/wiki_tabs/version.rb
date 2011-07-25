@@ -1,4 +1,4 @@
-module RedmineWikiTabs
+module WikiTabs
   module Version
     def to_s
       [major, minor, patch].join('.')
@@ -9,7 +9,7 @@ module RedmineWikiTabs
     end
 
     def major
-      3
+      4
     end
 
     def minor
