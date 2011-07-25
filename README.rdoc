@@ -11,12 +11,15 @@ a new page or a new child page of the current one.
 
 This plugin aims to be compatible with
 
-* ChiliProject 1.2
+* ChiliProject 1.1 and the following
+* ChiliProject 2.1 and the following
 
-Please note, that there is a bug when running the plugin in development mode.
-To make sure, that everything runs smooth, you need to run your app server in
-production mode, where class reloading is disabled. If you like, you can also
-use ChiliProject's unstable branch or wait until ChiliProject 2.0 is released.
+Please note, that there is a bug when running the plugin with ChiliProject 1.0
+in development mode.  To make sure, that everything runs smooth, you need to run
+your app server in production mode, where class reloading is disabled. You may
+of course just use ChiliProject 2.1.
+
+There is a bug in ChiliProject 2.0 which renders this plugin unusable.
 
 If you are running into compatibility issues, please report a bug in the
 project's issue tracker.
@@ -69,4 +72,5 @@ tracker with information, where you are stuck.
 
 (c) 2011 - Gregor Schmidt - Finn GmbH
 
-This plugin is licensed under the GNU GPL v2. See COPYRIGHT.txt and GPL.txt for details.
+This plugin is licensed under the GNU GPL v2. See COPYRIGHT.txt and GPL.txt for
+details.
