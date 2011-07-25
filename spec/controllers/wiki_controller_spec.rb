@@ -227,8 +227,8 @@ describe WikiController do
 
       # creating redirects
       @redirect = Factory.create(:wiki_redirect, :wiki_id      => @project.wiki.id,
-                                                 :title        => 'Source Title',
-                                                 :redirects_to => 'Target Title')
+                                                 :title        => 'Source_Title',
+                                                 :redirects_to => 'Target_Title')
 
       # creating page contents
       Factory.create(:wiki_content, :page_id   => @page_with_content.id,
