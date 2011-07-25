@@ -7,7 +7,6 @@
 </h2>
 
 <% form_for :content, @content, :url => wiki_create_path(:project_id => @project), :html => {:method => :post, :multipart => true, :id => 'wiki_form'} do |f| %>
-  <%= f.hidden_field :version %>
 
   <%= error_messages_for 'page' %>
 
