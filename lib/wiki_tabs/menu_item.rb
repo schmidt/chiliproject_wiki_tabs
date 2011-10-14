@@ -6,7 +6,9 @@ module WikiTabs
     attr_accessor :selected
 
     def initialize(wiki_tab)
-      super(wiki_tab.name.parameterize,
+      tab_class = wiki_tab.name.parameterize
+      tab_class = "wiki-#{wiki_tab.id}" if tab_class.blank?
+      super(tab_class,
             {:controller => 'wiki', :action => 'show', :id => wiki_tab.title},
             :param => :project_id,
             :caption => wiki_tab.name)
