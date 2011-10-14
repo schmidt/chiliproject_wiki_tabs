@@ -34,7 +34,6 @@ Dispatcher.to_prepare :wiki_tabs do
     require_dependency 'redmine/menu_manager/menu_helper'
     WikiTabs::Patches::RedmineMenuManagerPatch.reload_support = true
   rescue LoadError
-    require_dependency 'redmine/menu_manager'
     WikiTabs::Patches::RedmineMenuManagerPatch.reload_support = false
   end
 

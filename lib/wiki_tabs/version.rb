@@ -13,11 +13,11 @@ module WikiTabs
     end
 
     def minor
-      1
+      0
     end
 
     def patch
-      0
+      1
     end
 
     extend self
