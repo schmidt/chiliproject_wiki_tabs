@@ -321,8 +321,8 @@ describe WikiController do
           response.should have_exactly_one_selected_tab_in(:project_menu)
 
           response.should have_tag('#main-menu') do
-            with_tag "a.#{@wiki_tab.name.parameterize}"
-            without_tag "a.#{@wiki_tab.name.parameterize}.selected"
+            with_tag "a.#{@wiki_tab.tab_class}"
+            without_tag "a.#{@wiki_tab.tab_class}.selected"
           end
         end
 
@@ -333,20 +333,20 @@ describe WikiController do
           response.should have_exactly_one_selected_tab_in(:project_menu)
 
           response.should have_tag('#main-menu') do
-            with_tag "a.#{@wiki_tab.name.parameterize}"
-            without_tag "a.#{@wiki_tab.name.parameterize}.selected"
+            with_tag "a.#{@wiki_tab.tab_class}"
+            without_tag "a.#{@wiki_tab.tab_class}.selected"
           end
         end
 
-        it "is inactive, when an other custom wiki tab's page is shown" do
+        it "is inactive, when another custom wiki tab's page is shown" do
           get 'show', :id => @other_wiki_tab.title, :project_id => @project.id
 
           response.should be_success
           response.should have_exactly_one_selected_tab_in(:project_menu)
 
           response.should have_tag('#main-menu') do
-            with_tag "a.#{@wiki_tab.name.parameterize}"
-            without_tag "a.#{@wiki_tab.name.parameterize}.selected"
+            with_tag "a.#{@wiki_tab.tab_class}"
+            without_tag "a.#{@wiki_tab.tab_class}.selected"
           end
         end
 
@@ -357,7 +357,7 @@ describe WikiController do
           response.should have_exactly_one_selected_tab_in(:project_menu)
 
           response.should have_tag('#main-menu') do
-            with_tag "a.#{@wiki_tab.name.parameterize}.selected"
+            with_tag "a.#{@wiki_tab.tab_class}.selected"
           end
         end
       end
@@ -370,7 +370,7 @@ describe WikiController do
           response.should have_exactly_one_selected_tab_in(:project_menu)
 
           response.should have_tag('#main-menu') do
-            with_tag "a.#{@wiki_tab.name.parameterize}.selected"
+            with_tag "a.#{@wiki_tab.tab_class}.selected"
           end
         end
       end
