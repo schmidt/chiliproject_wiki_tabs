@@ -405,6 +405,17 @@ describe WikiController do
 
         it_should_behave_like 'all custom wiki tabs'
       end
+
+      describe '- wiki_tab containing special chars only' do
+        before do
+          @wiki_tab = Factory.create(:wiki_tab, :wiki_id => @project.wiki.id,
+                                                :name    => '?',
+                                                :title   => 'Help')
+          @other_wiki_tab = @tab_for_page_with_content
+        end
+
+        it_should_behave_like 'all custom wiki tabs'
+      end
     end
 
     describe '- wiki sidebar' do
