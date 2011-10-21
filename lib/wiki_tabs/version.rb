@@ -17,7 +17,7 @@ module WikiTabs
     end
 
     def patch
-      0
+      1
     end
 
     extend self
