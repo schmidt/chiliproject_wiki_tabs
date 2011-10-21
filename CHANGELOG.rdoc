@@ -1,3 +1,9 @@
+= 5.0.0 - 2011-10-21
+
+Major Change:
+
+* Plugin folder should be named chiliproject_wiki_tabs from now on.
+
 = 4.0.3 - 2011-10-17
 
 Fixes:

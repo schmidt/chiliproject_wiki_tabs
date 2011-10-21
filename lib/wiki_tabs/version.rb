@@ -9,7 +9,7 @@ module WikiTabs
     end
 
     def major
-      4
+      5
     end
 
     def minor
@@ -17,7 +17,7 @@ module WikiTabs
     end
 
     def patch
-      3
+      0
     end
 
     extend self
