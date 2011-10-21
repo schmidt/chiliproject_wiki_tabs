@@ -26,38 +26,39 @@ project's issue tracker.
 
 == Installation
 
-Please follow the default plugin installation instructions for
-ChiliProject. Make sure, the plugin folder is called `redmine_wiki_tabs`.
+Please follow the default plugin installation instructions for ChiliProject.
+Make sure, the plugin folder is called `chiliproject_wiki_tabs`.
+
 Also run
 
-    rake db:migrate:plugin NAME=redmine_wiki_tabs RAILS_ENV=production
+    rake db:migrate:plugin NAME=chiliproject_wiki_tabs RAILS_ENV=production
 
 to enable all changes that are needed database-wise.
 
 == Screenshots
 
-https://github.com/finnlabs/redmine_wiki_tabs/raw/master/doc/screen-capture-1.png
+https://github.com/finnlabs/chiliproject_wiki_tabs/raw/master/doc/screen-capture-1.png
 
-https://github.com/finnlabs/redmine_wiki_tabs/raw/master/doc/screen-capture-2.png
+https://github.com/finnlabs/chiliproject_wiki_tabs/raw/master/doc/screen-capture-2.png
 
-https://github.com/finnlabs/redmine_wiki_tabs/raw/master/doc/screen-capture-3.png
+https://github.com/finnlabs/chiliproject_wiki_tabs/raw/master/doc/screen-capture-3.png
 
-https://github.com/finnlabs/redmine_wiki_tabs/raw/master/doc/screen-capture-4.png
+https://github.com/finnlabs/chiliproject_wiki_tabs/raw/master/doc/screen-capture-4.png
 
 == Deinstallation
 
 Run the down-migrations by executing
 
-    rake db:migrate:plugin NAME=redmine_wiki_tabs VERSION=0 RAILS_ENV=production
+    rake db:migrate:plugin NAME=chiliproject_wiki_tabs VERSION=0 RAILS_ENV=production
 
 Remove the Plugin from vendor/plugins
 
-    rm -r vendor/plugins/redmine_wiki_tabs
+    rm -r vendor/plugins/chiliproject_wiki_tabs
 
 == Development
 
-To run the tests, you will need a current version of our {Redmine/ChiliProject
-Dev Tools}[https://github.com/finnlabs/redmine-dev-tools]. After running
+To run the tests, you will need a current version of our {ChiliProject Dev
+Tools}[https://github.com/finnlabs/redmine-dev-tools]. After running
 
     bundle install
 

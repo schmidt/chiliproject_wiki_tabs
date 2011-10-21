@@ -1,7 +1,7 @@
 require 'redmine'
 
 Redmine::Plugin.register :wiki_tabs do
-  name 'Wiki Tabs Plugin'
+  name 'ChiliProject Wiki Tabs Plugin'
   author 'Gregor Schmidt'
   description 'This plugin provides the ability to add tabs linking to wiki ' +
               'pages on a per-project basis.'
