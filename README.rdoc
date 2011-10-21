@@ -35,6 +35,34 @@ Also run
 
 to enable all changes that are needed database-wise.
 
+== Update from versions before 5.0 to version 5.0 and later
+
+Since we have renamed the recommended plugin name with version 5.0, there is
+some mangeling with the migrations, when you making the update. Please follow
+these steps to make it work.
+
+1. Make a backup of your database.
+2. Seriously, do a backup.
+3. Execute the following SQL snippet on the database, you are using for your
+   ChiliProject
+
+    UPDATE schema_migrations
+    SET version = REPLACE(version, 'redmine_wiki_tabs', 'chiliproject_wiki_tabs');
+
+You may do this, by using the commandline tools of your database vendor or by
+starting a script/console from within the ChiliProject root folder
+
+    script/console production
+
+    > ActiveRecord::Base.connection.execute "UPDATE schema_migrations SET version = REPLACE(version, 'redmine_wiki_tabs', 'chiliproject_wiki_tabs');"
+
+Be sure, that `redmine_wiki_tabs` was the old plugins directory name. Also make
+sure, that you renamed it to `chiliproject_wiki_tabs`.
+
+
+4. Execute the plugins migrations and make sure, that nothing happens.
+
+
 == Screenshots
 
 https://github.com/finnlabs/chiliproject_wiki_tabs/raw/master/doc/screen-capture-1.png
