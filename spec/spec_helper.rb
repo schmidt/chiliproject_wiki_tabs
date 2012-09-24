@@ -9,7 +9,7 @@ end
 
 begin
   #require "config/environment" unless defined? RAILS_ROOT
-  require 'spec/spec_helper'
+  require './spec/spec_helper'
 rescue LoadError => error
   puts <<-EOS
 
