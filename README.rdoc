@@ -13,6 +13,7 @@ This plugin aims to be compatible with
 
 * ChiliProject 1.1 and the following
 * ChiliProject 2.1 and the following
+* ChiliProject 3.0 and the following
 
 Please note, that there is a bug when running the plugin with ChiliProject 1.0
 in development mode.  To make sure, that everything runs smooth, you need to run
