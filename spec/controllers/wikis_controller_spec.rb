@@ -7,12 +7,12 @@ describe WikisController do
     @role = Factory.create(:non_member)
     @user = Factory.create(:admin)
     User.stub!(:current).and_return @user
-    
+
     @params = {
       :wiki => {
-        :tabs_attributes => { 
+        :tabs_attributes => {
           :'0' => {:name => "abc", :title => "def", :_destroy => "", :active => "1"}
-        }, 
+        },
         :start_page => "Start Page"
       }
     }
