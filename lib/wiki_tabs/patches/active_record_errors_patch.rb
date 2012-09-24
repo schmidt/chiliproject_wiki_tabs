@@ -21,4 +21,6 @@ module WikiTabs
   end
 end
 
-ActiveRecord::Errors.send(:include, WikiTabs::Patches::ActiveRecordErrorsPatch)
+unless ActiveRecord::Errors.included_modules.include?(WikiTabs::Patches::ActiveRecordErrorsPatch)
+  ActiveRecord::Errors.send(:include, WikiTabs::Patches::ActiveRecordErrorsPatch)
+end
