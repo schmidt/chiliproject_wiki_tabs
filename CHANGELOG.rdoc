@@ -1,3 +1,10 @@
+= 5.0.3 - 2012-09-24
+
+Fixes:
+
+* Reloading issue in development mode
+* Mass-assignment fix of previous release was incomplete
+
 = 5.0.2 - 2012-09-24
 
 Fixes:
