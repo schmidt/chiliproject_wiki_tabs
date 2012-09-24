@@ -13,7 +13,7 @@ module WikiTabs
             :allow_destroy => true,
             :reject_if => proc { |attr| attr['name'].blank? && attr['title'].blank? }
 
-          safe_attributes :tabs_attributes
+          safe_attributes :show_default_tab, :tabs_attributes
 
           include InstanceMethods
         end
