@@ -20,3 +20,5 @@ module WikiTabs
     end
   end
 end
+
+ActiveRecord::Errors.send(:include, WikiTabs::Patches::ActiveRecordErrorsPatch)

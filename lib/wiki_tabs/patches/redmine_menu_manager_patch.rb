@@ -89,3 +89,12 @@ module WikiTabs
     end
   end
 end
+
+begin
+  require_dependency 'redmine/menu_manager/menu_helper'
+  WikiTabs::Patches::RedmineMenuManagerPatch.reload_support = true
+rescue LoadError
+  WikiTabs::Patches::RedmineMenuManagerPatch.reload_support = false
+end
+
+Redmine::MenuManager::MenuHelper.send(:include, WikiTabs::Patches::RedmineMenuManagerPatch)

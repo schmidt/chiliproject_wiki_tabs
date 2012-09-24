@@ -55,3 +55,7 @@ module WikiTabs
     end
   end
 end
+
+require_dependency 'wiki_controller'
+
+WikiController.send(:include, WikiTabs::Patches::WikiControllerPatch)

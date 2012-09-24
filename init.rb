@@ -19,29 +19,10 @@ end
 
 require 'dispatcher'
 Dispatcher.to_prepare :wiki_tabs do
-
-  require_dependency 'wiki'
-  require_dependency 'wiki_controller'
   require_dependency 'wiki_tab'
-  unless Wiki.included_modules.include?(WikiTabs::Patches::WikiPatch)
-    Wiki.send(:include, WikiTabs::Patches::WikiPatch)
-  end
-  unless WikiController.included_modules.include?(WikiTabs::Patches::WikiControllerPatch)
-    WikiController.send(:include, WikiTabs::Patches::WikiControllerPatch)
-  end
 
-  begin
-    require_dependency 'redmine/menu_manager/menu_helper'
-    WikiTabs::Patches::RedmineMenuManagerPatch.reload_support = true
-  rescue LoadError
-    WikiTabs::Patches::RedmineMenuManagerPatch.reload_support = false
-  end
-
-  unless Redmine::MenuManager::MenuHelper.included_modules.include?(WikiTabs::Patches::RedmineMenuManagerPatch)
-    Redmine::MenuManager::MenuHelper.send(:include, WikiTabs::Patches::RedmineMenuManagerPatch)
-  end
-
-  unless ActiveRecord::Errors.included_modules.include?(WikiTabs::Patches::ActiveRecordErrorsPatch)
-    ActiveRecord::Errors.send(:include, WikiTabs::Patches::ActiveRecordErrorsPatch)
-  end
+  require_dependency 'wiki_tabs/patches/wiki_patch'
+  require_dependency 'wiki_tabs/patches/wiki_controller_patch'
+  require_dependency 'wiki_tabs/patches/redmine_menu_manager_patch'
+  require_dependency 'wiki_tabs/patches/active_record_errors_patch'
 end

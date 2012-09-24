@@ -26,3 +26,7 @@ module WikiTabs
     end
   end
 end
+
+require_dependency 'wiki'
+
+Wiki.send(:include, WikiTabs::Patches::WikiPatch)
