@@ -5,7 +5,10 @@ module WikiTabs
         base.class_eval do
           unloadable
 
-          has_many :tabs, :class_name => 'WikiTab', :dependent => :destroy, :order => 'name'
+          has_many :tabs, :class_name => 'WikiTab',
+                          :dependent => :destroy,
+                          :order => 'name'
+
           accepts_nested_attributes_for :tabs,
             :allow_destroy => true,
             :reject_if => proc { |attr| attr['name'].blank? && attr['title'].blank? }
