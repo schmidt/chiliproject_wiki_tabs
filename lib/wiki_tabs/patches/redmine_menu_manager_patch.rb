@@ -54,7 +54,7 @@ module WikiTabs
           alias_method_chain :extract_node_details, :wiki_tabs
 
           def wiki_tabs_menu_items(project, wiki_node)
-            menu_items = WikiTab.active.find(:all, :conditions => {:wiki_id => project.wiki}).map do |tab|
+            menu_items = project.wiki.tabs.active.all.map do |tab|
               WikiTabs::MenuItem.new(tab)
             end
 
