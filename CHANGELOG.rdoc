@@ -1,3 +1,9 @@
+= 5.1.0 - 2012-09-25
+
+Change:
+
+* WikiTabs are now ordered alphabetically. Previously order was not defined.
+
 = 5.0.3 - 2012-09-24
 
 Fixes:
